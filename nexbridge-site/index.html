@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NexBridge Solutions — Technology for Small Business & Healthcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy:    #0f2548;
+    --navy2:   #1b3a6b;
+    --teal:    #0a7e8c;
+    --teal2:   #0db8cc;
+    --amber:   #f4a228;
+    --light:   #f0f5fb;
+    --white:   #ffffff;
+    --muted:   #6b7fa3;
+    --dark:    #07182e;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito Sans', sans-serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
+
+  /* ── NAV ──────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 68px;
+    background: rgba(7, 24, 46, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13,184,204,0.15);
+    transition: background 0.3s;
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--white); letter-spacing: 2px; }
+  .nav-logo span { color: var(--teal2); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal2); }
+  .nav-cta { background: var(--teal); color: var(--white); padding: 0.5rem 1.4rem; border-radius: 6px; font-weight: 700; font-size: 0.85rem; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.2s, transform 0.15s; }
+  .nav-cta:hover { background: var(--teal2); transform: translateY(-1px); }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  #hero {
+    position: relative; min-height: 100vh;
+    background: var(--dark);
+    display: flex; align-items: center;
+    overflow: hidden;
+    padding: 120px 5% 80px;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0; opacity: 0.06;
+    background-image: linear-gradient(var(--teal2) 1px, transparent 1px), linear-gradient(90deg, var(--teal2) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-glow {
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(13,184,204,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: -150px; left: 30%;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(27,58,107,0.5) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 680px; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(13,184,204,0.12); border: 1px solid rgba(13,184,204,0.3);
+    color: var(--teal2); padding: 6px 16px; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 1; color: var(--white); letter-spacing: 1px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title em { color: var(--teal2); font-style: normal; }
+  .hero-title .line2 { color: rgba(255,255,255,0.35); display: block; }
+  .hero-sub {
+    margin-top: 1.5rem; color: rgba(255,255,255,0.62);
+    font-size: 1.05rem; line-height: 1.8; max-width: 540px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-actions {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--teal), var(--teal2));
+    color: white; padding: 0.9rem 2.2rem; border-radius: 8px;
+    font-weight: 800; font-size: 0.95rem; text-decoration: none;
+    letter-spacing: 0.3px; transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(13,184,204,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(13,184,204,0.5); }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 0.9rem 2.2rem; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2); transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--teal2); color: var(--teal2); }
+  .hero-stats {
+    margin-top: 4rem; display: flex; gap: 3rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat { border-left: 3px solid var(--teal); padding-left: 1rem; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--white); letter-spacing: 1px; line-height: 1; }
+  .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── SECTION BASE ─────────────────────────────────────────── */
+  section { padding: 100px 5%; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 0.8rem;
+  }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 4vw, 3.5rem); color: var(--navy); line-height: 1.1; letter-spacing: 0.5px; }
+  .section-title.light { color: var(--white); }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.75; margin-top: 1rem; max-width: 600px; }
+  .section-sub.light { color: rgba(255,255,255,0.6); }
+  .centered { text-align: center; }
+  .centered .section-sub { margin: 1rem auto 0; }
+
+  /* ── SERVICES ─────────────────────────────────────────────── */
+  #services { background: var(--light); }
+  .services-grid {
+    margin-top: 4rem;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--white); border-radius: 16px;
+    padding: 2rem; border: 1px solid #dde6f2;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, var(--teal), var(--teal2));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(15,37,72,0.12); border-color: var(--teal2); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .svc-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .svc-title { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 0.6rem; }
+  .svc-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+  .svc-tag {
+    display: inline-block; margin-top: 1.2rem;
+    background: rgba(10,126,140,0.08); color: var(--teal);
+    font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* ── HEALTHCARE SPOTLIGHT ─────────────────────────────────── */
+  #healthcare {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--dark) 100%);
+    position: relative; overflow: hidden;
+  }
+  #healthcare .bg-accent {
+    position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(13,184,204,0.1) 0%, transparent 70%);
+  }
+  .hc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; z-index: 1; }
+  .hc-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.5rem; }
+  .hc-tag {
+    background: rgba(13,184,204,0.12); border: 1px solid rgba(13,184,204,0.25);
+    color: var(--teal2); padding: 6px 14px; border-radius: 6px;
+    font-size: 0.8rem; font-weight: 700;
+  }
+  .hc-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .hc-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 1.4rem 1.6rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .hc-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(13,184,204,0.3); }
+  .hc-card-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .hc-card-title { font-size: 0.92rem; font-weight: 800; color: var(--white); margin-bottom: 3px; }
+  .hc-card-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* ── CYBERSECURITY ────────────────────────────────────────── */
+  #security { background: var(--white); }
+  .sec-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+  .threat-meter { margin-top: 2rem; }
+  .threat-item { margin-bottom: 1.4rem; }
+  .threat-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .threat-bar { height: 8px; background: var(--light); border-radius: 100px; overflow: hidden; }
+  .threat-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--teal), var(--teal2)); animation: growBar 1.4s ease both; }
+  @keyframes growBar { from { width: 0 !important; } }
+  .sec-features { display: flex; flex-direction: column; gap: 1rem; }
+  .sec-feature {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.2rem; border-radius: 10px; border: 1px solid #e8eef6;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .sec-feature:hover { border-color: var(--teal2); background: rgba(10,126,140,0.04); }
+  .sec-check { width: 28px; height: 28px; background: linear-gradient(135deg, var(--teal), var(--teal2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; flex-shrink: 0; margin-top: 2px; }
+  .sec-feature-title { font-weight: 800; font-size: 0.92rem; color: var(--navy); }
+  .sec-feature-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-top: 2px; }
+
+  /* ── ONBOARDING ───────────────────────────────────────────── */
+  #onboarding { background: var(--light); }
+  .ob-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+  .ob-steps { display: flex; flex-direction: column; gap: 0; }
+  .ob-step { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem 0; border-bottom: 1px solid #dde6f2; }
+  .ob-step:last-child { border-bottom: none; }
+  .ob-num { width: 40px; height: 40px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; flex-shrink: 0; letter-spacing: 1px; }
+  .ob-step-title { font-weight: 800; font-size: 0.95rem; color: var(--navy); }
+  .ob-step-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin-top: 3px; }
+  .ob-visual {
+    background: var(--navy); border-radius: 20px;
+    padding: 2.5rem; position: sticky; top: 100px;
+  }
+  .ob-visual-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--white); letter-spacing: 1px; margin-bottom: 1.5rem; }
+  .progress-item { margin-bottom: 1.4rem; }
+  .progress-header { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+  .progress-track { height: 6px; background: rgba(255,255,255,0.1); border-radius: 100px; }
+  .progress-bar { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+
+  /* ── PRICING ──────────────────────────────────────────────── */
+  #pricing { background: var(--white); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
+  .pricing-card {
+    border-radius: 20px; padding: 2.5rem; border: 1px solid #dde6f2;
+    position: relative; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(15,37,72,0.1); }
+  .pricing-card.featured {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--dark) 100%);
+    border-color: transparent;
+    box-shadow: 0 20px 60px rgba(15,37,72,0.3);
+  }
+  .pricing-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--teal), var(--teal2));
+    color: white; font-size: 0.72rem; font-weight: 800;
+    padding: 4px 16px; border-radius: 100px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+  }
+  .price-tier { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--teal); margin-bottom: 0.4rem; }
+  .price-tier.light { color: var(--teal2); }
+  .price-amount { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--navy); letter-spacing: 1px; line-height: 1; }
+  .price-amount.light { color: var(--white); }
+  .price-period { font-size: 0.82rem; color: var(--muted); }
+  .price-period.light { color: rgba(255,255,255,0.45); }
+  .price-desc { font-size: 0.88rem; color: var(--muted); margin: 1rem 0 1.5rem; line-height: 1.6; }
+  .price-desc.light { color: rgba(255,255,255,0.55); }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .price-features li { font-size: 0.88rem; color: var(--navy); display: flex; gap: 0.6rem; align-items: flex-start; }
+  .price-features li.light { color: rgba(255,255,255,0.75); }
+  .price-features li::before { content: '✓'; color: var(--teal); font-weight: 900; flex-shrink: 0; }
+  .price-features li.light::before { color: var(--teal2); }
+  .price-cta {
+    display: block; margin-top: 2rem; text-align: center;
+    padding: 0.85rem; border-radius: 8px; font-weight: 800; font-size: 0.88rem;
+    text-decoration: none; letter-spacing: 0.3px; transition: all 0.2s;
+  }
+  .price-cta.dark { background: var(--light); color: var(--navy); }
+  .price-cta.dark:hover { background: var(--teal2); color: white; }
+  .price-cta.glow { background: linear-gradient(135deg, var(--teal), var(--teal2)); color: white; box-shadow: 0 4px 20px rgba(13,184,204,0.4); }
+  .price-cta.glow:hover { box-shadow: 0 6px 30px rgba(13,184,204,0.6); transform: translateY(-1px); }
+
+  /* ── ABOUT ────────────────────────────────────────────────── */
+  #about {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--navy) 100%);
+    position: relative; overflow: hidden;
+  }
+  .about-bg { position: absolute; left: -200px; top: 50%; transform: translateY(-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(10,126,140,0.15) 0%, transparent 70%); }
+  .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; z-index: 1; }
+  .credential-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .credential {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 1rem 1.2rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .credential:hover { background: rgba(255,255,255,0.09); border-color: rgba(13,184,204,0.3); }
+  .cred-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .cred-title { font-size: 0.9rem; font-weight: 800; color: var(--white); }
+  .cred-sub { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .about-quote {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--white); line-height: 1.2; letter-spacing: 0.5px;
+  }
+  .about-quote em { color: var(--teal2); font-style: normal; }
+  .about-body { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.8; margin-top: 1.5rem; }
+
+  /* ── CTA BANNER ───────────────────────────────────────────── */
+  #cta {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--navy2) 100%);
+    padding: 80px 5%; text-align: center;
+  }
+  .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); color: white; letter-spacing: 1px; }
+  .cta-sub { color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 0.8rem; }
+  .cta-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+  .btn-white { background: white; color: var(--teal); padding: 0.95rem 2.5rem; border-radius: 8px; font-weight: 800; font-size: 0.95rem; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .btn-outline-white { background: transparent; color: white; padding: 0.95rem 2.5rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; border: 2px solid rgba(255,255,255,0.4); transition: border-color 0.2s; }
+  .btn-outline-white:hover { border-color: white; }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  footer {
+    background: var(--dark); padding: 60px 5% 30px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand .nav-logo { font-size: 1.5rem; display: block; margin-bottom: 1rem; }
+  .footer-brand p { color: rgba(255,255,255,0.4); font-size: 0.85rem; line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { color: rgba(255,255,255,0.7); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.38); font-size: 0.85rem; text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--teal2); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { color: rgba(255,255,255,0.28); font-size: 0.8rem; }
+  .footer-badges { display: flex; gap: 0.8rem; }
+  .badge-pill { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.08); }
+
+  /* ── RESPONSIVE ───────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .hc-layout, .sec-layout, .ob-layout, .about-layout, .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NEX<span>BRIDGE</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#healthcare">Healthcare IT</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Free Assessment</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Tampa Bay, FL &nbsp;·&nbsp; Est. 2025</div>
+    <h1 class="hero-title">
+      ENTERPRISE IT<br>
+      <em>FOR THE REST</em>
+      <span class="line2">OF US.</span>
+    </h1>
+    <p class="hero-sub">
+      Web apps, mobile, cloud, databases, insurance billing automation for medical offices, 
+      cybersecurity for small business — all from one deeply experienced team.
+    </p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Get a Free IT Assessment</a>
+      <a href="#services" class="btn-ghost">Explore Services →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Engineering</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Core Verticals</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Patents Held</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">AWS</div>
+        <div class="stat-label">Certified Developer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-tag centered">What We Do</p>
+  <h2 class="section-title centered">Six Ways We Solve <br>Your Technology Problems</h2>
+  <p class="section-sub centered">From a 3-page website to a HIPAA-compliant insurance claims pipeline — we scope it, build it, and support it.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-icon">🌐</div>
+      <div class="svc-title">Web & Mobile Apps</div>
+      <p class="svc-desc">Custom websites, web applications, Android/iOS-compatible mobile apps, and customer portals — built with modern frameworks and connected to your backend systems.</p>
+      <span class="svc-tag">React · Next.js · FastAPI</span>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🏥</div>
+      <div class="svc-title">Healthcare IT & Insurance Billing</div>
+      <p class="svc-desc">EDI 837/835 claim processing, clearinghouse integration, eligibility checks, and prior authorization workflows. Built for clinics without in-house billing staff.</p>
+      <span class="svc-tag">Medicare · Medicaid · EDI X12</span>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🔒</div>
+      <div class="svc-title">Cybersecurity</div>
+      <p class="svc-desc">Vulnerability assessments, endpoint protection, email security, MFA enforcement, and HIPAA compliance infrastructure — at prices small businesses can actually afford.</p>
+      <span class="svc-tag">HIPAA · CompTIA Security+</span>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">👥</div>
+      <div class="svc-title">Employee Onboarding Automation</div>
+      <p class="svc-desc">Repeatable, consistent onboarding workflows. Automated account provisioning, device setup, digital document signing, and training delivery portals.</p>
+      <span class="svc-tag">HR Integration · Workflow Automation</span>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">☁️</div>
+      <div class="svc-title">Cloud & Infrastructure</div>
+      <p class="svc-desc">AWS and Azure setup, cost optimization, containerized deployments, database management, monitoring dashboards, and automated backups for small organizations.</p>
+      <span class="svc-tag">AWS · Azure · Docker · Kubernetes</span>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">📊</div>
+      <div class="svc-title">Business Intelligence</div>
+      <p class="svc-desc">Custom dashboards and reporting pipelines that give you real-time visibility into your sales, operations, and finances — no spreadsheet wrangling required.</p>
+      <span class="svc-tag">Dashboards · Analytics · Reporting</span>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTHCARE SPOTLIGHT -->
+<section id="healthcare">
+  <div class="bg-accent"></div>
+  <div class="hc-layout">
+    <div>
+      <p class="section-tag">For Medical Practices</p>
+      <h2 class="section-title light">Insurance Billing.<br>Finally Solved.</h2>
+      <p class="section-sub light">Small clinics are required to submit claims electronically — but rarely have staff who know how. We build and maintain the integration so your team can focus on patients, not paperwork.</p>
+      <div class="hc-tags">
+        <span class="hc-tag">EDI 837P Claims</span>
+        <span class="hc-tag">EDI 835 Remittance</span>
+        <span class="hc-tag">Eligibility 270/271</span>
+        <span class="hc-tag">Prior Auth Automation</span>
+        <span class="hc-tag">Denial Management</span>
+        <span class="hc-tag">HIPAA Compliant</span>
+        <span class="hc-tag">Medicare / Medicaid</span>
+        <span class="hc-tag">BlueCross · Aetna · Cigna</span>
+      </div>
+    </div>
+    <div class="hc-cards">
+      <div class="hc-card">
+        <div class="hc-card-icon">🔗</div>
+        <div>
+          <div class="hc-card-title">Clearinghouse Integration</div>
+          <div class="hc-card-desc">Direct connectivity with Waystar, Availity, Office Ally, and Change Healthcare. Your claims flow automatically to every major payer.</div>
+        </div>
+      </div>
+      <div class="hc-card">
+        <div class="hc-card-icon">🔄</div>
+        <div>
+          <div class="hc-card-title">Format Mapping Per Insurance</div>
+          <div class="hc-card-desc">Every insurance company has different requirements. We map and validate your data to each payer's exact specifications — no rejected claims from format errors.</div>
+        </div>
+      </div>
+      <div class="hc-card">
+        <div class="hc-card-icon">📋</div>
+        <div>
+          <div class="hc-card-title">Denial Management Dashboard</div>
+          <div class="hc-card-desc">Track, audit, and resubmit denied claims from a single portal. See patterns in denial reasons and recover revenue you'd otherwise miss.</div>
+        </div>
+      </div>
+      <div class="hc-card">
+        <div class="hc-card-icon">🛡️</div>
+        <div>
+          <div class="hc-card-title">HIPAA Infrastructure Built In</div>
+          <div class="hc-card-desc">Encrypted data handling, access controls, and audit logs included by default. Not an add-on — it's the foundation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CYBERSECURITY -->
+<section id="security">
+  <div class="centered">
+    <p class="section-tag">Cybersecurity</p>
+    <h2 class="section-title">60% of Hacked Small Businesses<br>Close Within 6 Months.</h2>
+    <p class="section-sub">Most don't have a plan. Most don't need to spend a fortune to be protected. We make enterprise-grade security accessible.</p>
+  </div>
+  <div class="sec-layout">
+    <div>
+      <h3 style="font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:0.5rem;">How Vulnerable Are You?</h3>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1.5rem;">Most small businesses score poorly across these categories. We fix all of them.</p>
+      <div class="threat-meter">
+        <div class="threat-item">
+          <div class="threat-label"><span>Email Phishing Exposure</span><span style="color:var(--teal)">High Risk</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:88%"></div></div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-label"><span>Unpatched Endpoints</span><span style="color:var(--teal)">High Risk</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:75%"></div></div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-label"><span>No MFA on Accounts</span><span style="color:var(--amber)">Moderate</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:65%"></div></div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-label"><span>No Incident Response Plan</span><span style="color:var(--teal)">High Risk</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:92%"></div></div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-label"><span>Weak Remote Access Controls</span><span style="color:var(--amber)">Moderate</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:70%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec-features">
+      <div class="sec-feature">
+        <div class="sec-check">✓</div>
+        <div>
+          <div class="sec-feature-title">Security Assessment ($499 flat)</div>
+          <div class="sec-feature-desc">Network scan, vulnerability audit, and a plain-English risk report. Know exactly where you stand before spending a dollar on protection.</div>
+        </div>
+      </div>
+      <div class="sec-feature">
+        <div class="sec-check">✓</div>
+        <div>
+          <div class="sec-feature-title">Endpoint Protection Deployment</div>
+          <div class="sec-feature-desc">Managed antivirus, EDR tools, and automated patch management across all your devices.</div>
+        </div>
+      </div>
+      <div class="sec-feature">
+        <div class="sec-check">✓</div>
+        <div>
+          <div class="sec-feature-title">Email Security & Phishing Defense</div>
+          <div class="sec-feature-desc">SPF/DKIM/DMARC configuration, spam filtering, and quarterly phishing simulations for your team.</div>
+        </div>
+      </div>
+      <div class="sec-feature">
+        <div class="sec-check">✓</div>
+        <div>
+          <div class="sec-feature-title">Incident Response Plan</div>
+          <div class="sec-feature-desc">A documented playbook so you know exactly what to do if a breach happens — before it happens.</div>
+        </div>
+      </div>
+      <div class="sec-feature">
+        <div class="sec-check">✓</div>
+        <div>
+          <div class="sec-feature-title">HIPAA Compliance Package</div>
+          <div class="sec-feature-desc">For medical practices: encrypted data handling, access controls, audit logs, and documentation for HIPAA audits.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONBOARDING -->
+<section id="onboarding">
+  <div class="ob-layout">
+    <div>
+      <p class="section-tag">Workforce Enablement</p>
+      <h2 class="section-title">Onboard Every New Employee<br>the Right Way. Every Time.</h2>
+      <p class="section-sub">Ad-hoc onboarding is expensive, inconsistent, and a security risk. We automate the whole process into a repeatable, trackable system.</p>
+      <div class="ob-steps">
+        <div class="ob-step">
+          <div class="ob-num">01</div>
+          <div>
+            <div class="ob-step-title">Automated Account Provisioning</div>
+            <div class="ob-step-desc">Email, software licenses, cloud access, and permissions configured automatically on day one — no IT ticket required.</div>
+          </div>
+        </div>
+        <div class="ob-step">
+          <div class="ob-num">02</div>
+          <div>
+            <div class="ob-step-title">Device Setup Checklists</div>
+            <div class="ob-step-desc">Standardized, documented setup guides for every device type in your environment. Nothing gets missed.</div>
+          </div>
+        </div>
+        <div class="ob-step">
+          <div class="ob-num">03</div>
+          <div>
+            <div class="ob-step-title">Training Delivery Portal</div>
+            <div class="ob-step-desc">A branded portal where new hires complete required training, sign policies, and track their progress before day one ends.</div>
+          </div>
+        </div>
+        <div class="ob-step">
+          <div class="ob-num">04</div>
+          <div>
+            <div class="ob-step-title">HR System Integration</div>
+            <div class="ob-step-desc">Connect your HRIS so that when a new hire is added, the entire onboarding workflow triggers automatically.</div>
+          </div>
+        </div>
+        <div class="ob-step">
+          <div class="ob-num">05</div>
+          <div>
+            <div class="ob-step-title">Digital Document Signing</div>
+            <div class="ob-step-desc">Offer letters, NDAs, policies — all signed digitally and filed automatically. Audit-ready from day one.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ob-visual">
+        <div class="ob-visual-title">Onboarding Dashboard</div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Account Provisioning</span><span style="color:var(--teal2)">Complete</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Device Setup</span><span style="color:var(--teal2)">Complete</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Security Training</span><span style="color:var(--amber)">In Progress</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:65%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Policy Sign-Off</span><span style="color:rgba(255,255,255,0.4)">Pending</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:0%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>HR System Sync</span><span style="color:var(--teal2)">Complete</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:100%"></div></div>
+        </div>
+        <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.1)">
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:0.8rem">Time to Full Productivity</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--teal2);letter-spacing:1px;">DAY ONE</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);">vs. industry average of 3–5 days</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="section-tag centered">Managed Services Pricing</p>
+  <h2 class="section-title centered">Predictable Monthly Pricing.<br>No Surprises.</h2>
+  <p class="section-sub centered">Choose a monthly plan or start with a one-time project. All plans include a dedicated point of contact and defined SLAs.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="price-tier">Basic Shield</div>
+      <div class="price-amount">$149</div>
+      <div class="price-period">/ month</div>
+      <p class="price-desc">Essential cybersecurity and IT monitoring for very small teams.</p>
+      <ul class="price-features">
+        <li>Endpoint protection (up to 10 devices)</li>
+        <li>Email security & spam filtering</li>
+        <li>Monthly security report</li>
+        <li>48-hour support response</li>
+        <li>Quarterly check-in call</li>
+      </ul>
+      <a href="#cta" class="price-cta dark">Get Started</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="price-tier light">Professional Guard</div>
+      <div class="price-amount light">$299</div>
+      <div class="price-period light">/ month</div>
+      <p class="price-desc light">Full-coverage IT & security for growing businesses.</p>
+      <ul class="price-features">
+        <li class="light">Everything in Basic Shield</li>
+        <li class="light">Up to 25 devices managed</li>
+        <li class="light">Patch management & updates</li>
+        <li class="light">MFA enforcement setup</li>
+        <li class="light">8-hour support response SLA</li>
+        <li class="light">Monthly business review</li>
+        <li class="light">Incident response playbook</li>
+      </ul>
+      <a href="#cta" class="price-cta glow">Get Started</a>
+    </div>
+    <div class="pricing-card">
+      <div class="price-tier">Healthcare Compliant</div>
+      <div class="price-amount">$499</div>
+      <div class="price-period">/ month</div>
+      <p class="price-desc">For medical practices that need HIPAA compliance + insurance billing support.</p>
+      <ul class="price-features">
+        <li>Everything in Professional Guard</li>
+        <li>HIPAA infrastructure & audit logs</li>
+        <li>EDI claim monitoring</li>
+        <li>Denial management alerts</li>
+        <li>2-hour critical response SLA</li>
+        <li>Annual HIPAA risk assessment</li>
+      </ul>
+      <a href="#cta" class="price-cta dark">Get Started</a>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:2rem;font-size:0.85rem;color:var(--muted)">Need a custom project? One-time builds start at $2,500. <a href="#cta" style="color:var(--teal);font-weight:700;text-decoration:none;">Let's scope it →</a></p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-bg"></div>
+  <div class="about-layout">
+    <div>
+      <p class="section-tag">About the Founder</p>
+      <div class="about-quote">
+        THE CLIENTS THE <em>GIANTS</em><br>IGNORE ARE THE<br>ONES WE <em>SERVE.</em>
+      </div>
+      <p class="about-body">NexBridge was built on a simple observation: small businesses and small medical practices need the same quality of technology as large enterprises — they just can't afford big-firm rates or long procurement cycles. Francisco Moreno brings DoD-level engineering discipline to the small business world.</p>
+      <div class="credential-list">
+        <div class="credential">
+          <div class="cred-icon">🎓</div>
+          <div><div class="cred-title">BSEE — Illinois Institute of Technology</div><div class="cred-sub">Bachelor of Science, Electrical Engineering</div></div>
+        </div>
+        <div class="credential">
+          <div class="cred-icon">☁️</div>
+          <div><div class="cred-title">AWS Certified Developer</div><div class="cred-sub">Amazon Web Services — Cloud architecture & deployment</div></div>
+        </div>
+        <div class="credential">
+          <div class="cred-icon">🔐</div>
+          <div><div class="cred-title">CompTIA Security+</div><div class="cred-sub">Cybersecurity fundamentals, threat management & compliance</div></div>
+        </div>
+        <div class="credential">
+          <div class="cred-icon">🏛️</div>
+          <div><div class="cred-title">Active TS/SCI Clearance</div><div class="cred-sub">Lead Principal Software Developer — Northrop Grumman</div></div>
+        </div>
+        <div class="credential">
+          <div class="cred-icon">💡</div>
+          <div><div class="cred-title">2 U.S. Patents</div><div class="cred-sub">Powerline communication technology</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;z-index:1">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:2.5rem;">
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:white;letter-spacing:1px;margin-bottom:1.5rem">Why NexBridge?</h3>
+        <div style="display:flex;flex-direction:column;gap:1.2rem">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:8px;height:8px;background:var(--teal2);border-radius:50%;flex-shrink:0;margin-top:7px"></div>
+            <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.7"><strong style="color:white">One trusted partner.</strong> Not a revolving door of developers. Francisco owns your project from kickoff to support.</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:8px;height:8px;background:var(--teal2);border-radius:50%;flex-shrink:0;margin-top:7px"></div>
+            <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.7"><strong style="color:white">Healthcare-native.</strong> We don't bolt on HIPAA compliance. It's in every architecture decision from day one.</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:8px;height:8px;background:var(--teal2);border-radius:50%;flex-shrink:0;margin-top:7px"></div>
+            <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.7"><strong style="color:white">DoD-grade thinking.</strong> 20 years of building secure, mission-critical systems. Your small business gets the same rigor.</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:8px;height:8px;background:var(--teal2);border-radius:50%;flex-shrink:0;margin-top:7px"></div>
+            <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.7"><strong style="color:white">Tampa Bay local.</strong> We know this market, these businesses, and the specific challenges of doing business in Florida.</div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div style="width:8px;height:8px;background:var(--teal2);border-radius:50%;flex-shrink:0;margin-top:7px"></div>
+            <div style="font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:1.7"><strong style="color:white">Bilingual (EN/ES).</strong> We serve Spanish-speaking business owners and medical staff with no language barrier.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta">
+  <h2 class="cta-title">Ready to Build Something<br>That Actually Works?</h2>
+  <p class="cta-sub">Start with a free 30-minute IT assessment — no commitment, no sales pitch. Just an honest look at what you need.</p>
+  <div class="cta-actions">
+    <a href="/cdn-cgi/l/email-protection#157d7079797a557b706d77677c717270667a7960617c7a7b663b767a78" class="btn-white">Schedule Free Assessment</a>
+    <a href="tel:+18135550100" class="btn-outline-white">Call Us: (813) 555-0100</a>
+  </div>
+  <p style="color:rgba(255,255,255,0.45);font-size:0.8rem;margin-top:1.5rem">Tampa Bay, FL · Serving clients nationwide · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96fef3fafaf9d6f8f3eef4e4fff2f1f3e5f9fae3e2fff9f8e5b8f5f9fb">[email&#160;protected]</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo">NEX<span>BRIDGE</span></span>
+      <p>Enterprise-grade technology services for small businesses and healthcare providers in Tampa Bay and beyond.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">Web & Mobile Apps</a>
+      <a href="#healthcare">Healthcare IT</a>
+      <a href="#security">Cybersecurity</a>
+      <a href="#onboarding">Onboarding</a>
+      <a href="#services">Cloud & Infrastructure</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#about">About</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#cta">Contact</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="/cdn-cgi/l/email-protection#f29a979e9e9db29c978a90809b969597819d9e87869b9d9c81dc919d9f"><span class="__cf_email__" data-cfemail="3159545d5d5e715f5449534358555654425e5d4445585e5f421f525e5c">[email&#160;protected]</span></a>
+      <a href="tel:+18135550100">(813) 555-0100</a>
+      <a href="#">Tampa Bay, FL</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexB
